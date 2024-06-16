@@ -1,0 +1,69 @@
+What was the first cryptocurrency ever created?
+A) Bitcoin
+B) Ethereum
+C) Ripple
+D) Litecoin
+Answer: A) Bitcoin
+
+Who is often credited with publishing the whitepaper for Bitcoin in 2008?
+A) Vitalik Buterin
+B) Satoshi Nakamoto
+C) Charlie Lee
+D) Roger Ver
+Answer: B) Satoshi Nakamoto
+
+What is the maximum supply limit of Bitcoin?
+A) 21 million
+B) 18 million
+C) 25 million
+D) 15 million
+Answer: A) 21 million
+
+Which cryptocurrency uses the symbol XRP?
+A) Ripple
+B) Litecoin
+C) Stellar
+D) EOS
+Answer: A) Ripple
+
+What consensus algorithm does Ethereum currently use?
+A) Proof of Work (PoW)
+B) Proof of Stake (PoS)
+C) Delegated Proof of Stake (DPoS)
+D) Proof of Authority (PoA)
+Answer: A) Proof of Work (PoW)
+
+Which cryptocurrency is known for its focus on privacy and anonymity?
+A) Monero
+B) Cardano
+C) NEO
+D) Tron
+Answer: A) Monero
+
+What does ICO stand for in the context of cryptocurrencies?
+A) Initial Coin Offering
+B) International Crypto Organization
+C) Internet Coin Offering
+D) Initial Currency Offering
+Answer: A) Initial Coin Offering
+
+What is the native cryptocurrency of the Binance blockchain?
+A) Binance Coin (BNB)
+B) Tether (USDT)
+C) Bitcoin Cash (BCH)
+D) Chainlink (LINK)
+Answer: A) Binance Coin (BNB)
+
+Who founded the cryptocurrency exchange Coinbase?
+A) Brian Armstrong
+B) Changpeng Zhao
+C) Roger Ver
+D) Tyler Winklevoss
+Answer: A) Brian Armstrong
+
+What is the primary function of a cryptocurrency wallet?
+A) To mine cryptocurrencies
+B) To store private keys
+C) To execute smart contracts
+D) To facilitate peer-to-peer lending
+Answer: B) To store private keys
