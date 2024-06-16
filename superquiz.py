@@ -23,13 +23,12 @@ class QuizApp(QMainWindow):
         self.genre_combo_box.addItems(self.genres)
         self.genre_combo_box.currentIndexChanged.connect(self.change_genre)
 
-        self.question_label = QLabel()
-        self.feedback_label = QLabel()
-        self.score_label = QLabel(f'Score: {self.correct_answers}')
+        self.question_label = QLabel(self.questions[self.current_question_index]['question'])
+        self.feedback_label = QLabel('')
 
         self.option_buttons = []
-        for _ in range(4):
-            button = QPushButton()
+        for option in self.questions[self.current_question_index]['options']:
+            button = QPushButton(option)
             button.clicked.connect(self.check_answer)
             self.option_buttons.append(button)
 
@@ -39,16 +38,13 @@ class QuizApp(QMainWindow):
         for button in self.option_buttons:
             layout.addWidget(button)
         layout.addWidget(self.feedback_label)
-        layout.addWidget(self.score_label)
 
         central_widget = QWidget()
         central_widget.setLayout(layout)
         self.setCentralWidget(central_widget)
 
-        self.update_question_ui()
-
     def load_quiz_data(self, filename):
-        self.questions = []
+        self.questions.clear()  # Clear previous questions
         with open(filename, 'r') as file:
             lines = file.readlines()
             i = 0
@@ -61,39 +57,37 @@ class QuizApp(QMainWindow):
                     i += 6  # Move to the next set of question lines
                 else:
                     break  # Exit the loop if there aren't enough lines left
-        random.shuffle(self.questions)
+            random.shuffle(self.questions)
+            for question in self.questions:
+                random.shuffle(question['options'])
 
     def change_genre(self, index):
         selected_genre = self.genres[index]
         filename = selected_genre.lower().replace(' ', '_') + '.txt'  # Example: general_knowledge.txt
         self.load_quiz_data(filename)
+
         self.current_question_index = 0
         self.correct_answers = 0
         self.update_question_ui()
 
     def update_question_ui(self):
         if self.questions:
-            question_data = self.questions[self.current_question_index]
-            self.question_label.setText(question_data['question'])
-            for i, option in enumerate(question_data['options']):
+            self.question_label.setText(self.questions[self.current_question_index]['question'])
+            for i, option in enumerate(self.questions[self.current_question_index]['options']):
                 self.option_buttons[i].setText(option)
-                self.option_buttons[i].setEnabled(True)
-            self.feedback_label.setText('')
-            self.score_label.setText(f'Score: {self.correct_answers}')
+                self.option_buttons[i].setEnabled(True)  # Re-enable buttons for new question
+            self.feedback_label.setText('')  # Clear feedback label
 
     def check_answer(self):
         sender_button = self.sender()
-        selected_option = sender_button.text()  # Get the full text of the option
+        selected_option = sender_button.text()[0]  # Extracts the first character (A, B, C, D)
         correct_answer = self.questions[self.current_question_index]['answer']
-        correct = selected_option.startswith(correct_answer)
-        
-        if correct:
-            self.feedback_label.setText('Correct!')
+
+        if selected_option == correct_answer:
+            self.show_feedback('Correct!', 'correct')
             self.correct_answers += 1
         else:
-            self.feedback_label.setText(f'Incorrect! Correct answer: {correct_answer}')
-        
-        self.show_confirmation_dialog(correct)
+            self.show_feedback(f'Incorrect! Correct answer: {correct_answer}', 'incorrect')
 
         # Disable all option buttons after answering
         for button in self.option_buttons:
@@ -104,20 +98,13 @@ class QuizApp(QMainWindow):
         if self.current_question_index < len(self.questions):
             self.update_question_ui()
         else:
-            self.question_label.setText('Quiz completed!')
-            self.feedback_label.setText(f'You scored {self.correct_answers} out of {len(self.questions)}')
+            self.show_feedback(f'Quiz completed! You scored {self.correct_answers} out of {len(self.questions)}', 'completed')
 
-    def show_confirmation_dialog(self, correct):
-        msg = QMessageBox()
-        msg.setIcon(QMessageBox.Information)
-        if correct:
-            msg.setText("Correct!")
-            msg.setInformativeText("Good job!")
-        else:
-            msg.setText("Incorrect!")
-            msg.setInformativeText("Better luck next time!")
-        msg.setWindowTitle("Answer Confirmation")
-        msg.exec()
+    def show_feedback(self, message, title):
+        msg_box = QMessageBox()
+        msg_box.setText(message)
+        msg_box.setWindowTitle(title.capitalize())
+        msg_box.exec()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
