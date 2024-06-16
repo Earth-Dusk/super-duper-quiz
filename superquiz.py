@@ -8,10 +8,6 @@ class QuizApp(QMainWindow):
         super().__init__()
         self.questions = []
         self.initUI()
-        # Shuffle questions and answers initially
-        random.shuffle(self.questions)
-        for question in self.questions:
-            random.shuffle(question['options'])
 
     def initUI(self):
         self.setWindowTitle('Quiz App')
@@ -53,11 +49,12 @@ class QuizApp(QMainWindow):
             lines = file.readlines()
             i = 0
             while i < len(lines):
-                question = lines[i].strip()
+                question_line = lines[i].strip()
+                question_text = question_line.split('. ', 1)[1] if '. ' in question_line else question_line
                 if i + 5 < len(lines):  # Ensure there are enough lines for question, options, and answer
                     options = [lines[i+1].strip(), lines[i+2].strip(), lines[i+3].strip(), lines[i+4].strip()]
                     answer = lines[i+5].strip().split()[-1]  # Extract the last character (A, B, C, D) from "Answer: X"
-                    self.questions.append({'question': question, 'options': options, 'answer': answer})
+                    self.questions.append({'question': question_text, 'options': options, 'answer': answer})
                     i += 6  # Move to the next set of question lines
                 else:
                     break  # Exit the loop if there aren't enough lines left
