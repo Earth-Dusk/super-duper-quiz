@@ -1,0 +1,69 @@
+Who is credited with inventing the World Wide Web (WWW)?
+A) Tim Berners-Lee
+B) Bill Gates
+C) Steve Jobs
+D) Mark Zuckerberg
+Answer: A) Tim Berners-Lee
+
+What does CPU stand for in computing?
+A) Central Processing Unit
+B) Computer Processing Unit
+C) Central Power Unit
+D) Computer Power Unit
+Answer: A) Central Processing Unit
+
+Which company developed the Android operating system?
+A) Google
+B) Apple
+C) Microsoft
+D) Samsung
+Answer: A) Google
+
+What is the name of Apple's virtual assistant?
+A) Siri
+B) Alexa
+C) Cortana
+D) Google Assistant
+Answer: A) Siri
+
+Which programming language was developed by Sun Microsystems and is used primarily for client-side web development?
+A) JavaScript
+B) Java
+C) Python
+D) Ruby
+Answer: B) Java
+
+What is the term used to describe software that is distributed for free, allowing users to access and modify its source code?
+A) Open Source
+B) Freeware
+C) Shareware
+D) Closed Source
+Answer: A) Open Source
+
+What is the term used to describe software that is distributed for free, allowing users to access and modify its source code?
+A) Open Source
+B) Freeware
+C) Shareware
+D) Closed Source
+Answer: A) Open Source
+
+Which company developed the Windows operating system?
+A) Microsoft
+B) Apple
+C) Google
+D) IBM
+Answer: A) Microsoft
+
+What does HTML stand for in web development?
+A) Hyperlink Text Markup Language
+B) Hypertext Markup Language
+C) Hyper Transfer Machine Language
+D) High Tech Markup Language
+Answer: B) Hypertext Markup Language
+
+Which company developed the PlayStation gaming console?
+A) Sony
+B) Microsoft
+C) Nintendo
+D) Sega
+Answer: A) Sony
