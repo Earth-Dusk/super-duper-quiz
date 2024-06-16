@@ -1,3 +1,5 @@
+import os
+import Pyqt6
 import sys
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QVBoxLayout, QWidget, QComboBox
 
@@ -63,9 +65,10 @@ class QuizApp(QMainWindow):
         self.update_question_ui()
 
     def update_question_ui(self):
-        self.question_label.setText(self.questions[self.current_question_index]['question'])
-        for i, option in enumerate(self.questions[self.current_question_index]['options']):
-            self.option_buttons[i].setText(option)
+        if self.questions:
+            self.question_label.setText(self.questions[self.current_question_index]['question'])
+            for i, option in enumerate(self.questions[self.current_question_index]['options']):
+                self.option_buttons[i].setText(option)
 
     def check_answer(self):
         sender_button = self.sender()
