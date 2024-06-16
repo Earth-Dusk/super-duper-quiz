@@ -1,5 +1,4 @@
 import os
-import Pyqt6
 import sys
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QVBoxLayout, QWidget, QComboBox
 
