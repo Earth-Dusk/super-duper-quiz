@@ -46,14 +46,14 @@ class QuizApp(QMainWindow):
     def load_quiz_data(self, filename):
         self.questions.clear()  # Clear any existing questions
         with open(filename, 'r') as file:
-            lines = file.readlines()
+            lines = [line.strip() for line in file if line.strip()]  # Read lines and remove empty lines
             i = 0
             while i < len(lines):
-                question_line = lines[i].strip()
-                question_text = question_line.split('. ', 1)[1] if '. ' in question_line else question_line
                 if i + 5 < len(lines):  # Ensure there are enough lines for question, options, and answer
-                    options = [lines[i+1].strip(), lines[i+2].strip(), lines[i+3].strip(), lines[i+4].strip()]
-                    answer = lines[i+5].strip().split()[-1]  # Extract the last character (A, B, C, D) from "Answer: X"
+                    question_line = lines[i]
+                    question_text = question_line.split('. ', 1)[1] if '. ' in question_line else question_line
+                    options = [lines[i+1], lines[i+2], lines[i+3], lines[i+4]]
+                    answer = lines[i+5].split()[-1]  # Extract the last character (A, B, C, D) from "Answer: X"
                     self.questions.append({'question': question_text, 'options': options, 'answer': answer})
                     i += 6  # Move to the next set of question lines
                 else:
@@ -104,7 +104,6 @@ class QuizApp(QMainWindow):
         else:
             self.question_label.setText('Quiz completed!')
             self.feedback_label.setText(f'You scored {self.correct_answers} out of {len(self.questions)}')
-
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
