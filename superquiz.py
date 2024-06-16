@@ -13,9 +13,11 @@ class QuizApp(QMainWindow):
         self.setGeometry(100, 100, 400, 300)
 
         self.genres = ['General Knowledge', 'History', 'Science', 'Geography']  # Example genres
-        self.questions = []
-        self.load_quiz_data('general_knowledge.txt')  # Default to load general knowledge questions
+        self.all_questions = {}
+        for genre in self.genres:
+            self.load_quiz_data(genre.lower().replace(' ', '_') + '.txt')
 
+        self.questions = []
         self.current_question_index = 0
         self.correct_answers = 0
 
@@ -23,14 +25,12 @@ class QuizApp(QMainWindow):
         self.genre_combo_box.addItems(self.genres)
         self.genre_combo_box.currentIndexChanged.connect(self.change_genre)
 
-        self.question_label = QLabel(self.questions[self.current_question_index]['question'])
+        self.question_label = QLabel()
         self.feedback_label = QLabel('')
 
-        self.option_buttons = []
-        for option in self.questions[self.current_question_index]['options']:
-            button = QPushButton(option)
+        self.option_buttons = [QPushButton() for _ in range(4)]
+        for button in self.option_buttons:
             button.clicked.connect(self.check_answer)
-            self.option_buttons.append(button)
 
         layout = QVBoxLayout()
         layout.addWidget(self.genre_combo_box)
@@ -43,8 +43,10 @@ class QuizApp(QMainWindow):
         central_widget.setLayout(layout)
         self.setCentralWidget(central_widget)
 
+        self.change_genre(0)  # Load the default genre
+
     def load_quiz_data(self, filename):
-        self.questions.clear()  # Clear previous questions
+        questions = []
         with open(filename, 'r') as file:
             lines = file.readlines()
             i = 0
@@ -53,18 +55,18 @@ class QuizApp(QMainWindow):
                 if i + 5 < len(lines):  # Ensure there are enough lines for question, options, and answer
                     options = [lines[i+1].strip(), lines[i+2].strip(), lines[i+3].strip(), lines[i+4].strip()]
                     answer = lines[i+5].strip().split()[-1]  # Extract the last character (A, B, C, D) from "Answer: X"
-                    self.questions.append({'question': question, 'options': options, 'answer': answer})
+                    questions.append({'question': question, 'options': options, 'answer': answer})
                     i += 6  # Move to the next set of question lines
                 else:
                     break  # Exit the loop if there aren't enough lines left
-            random.shuffle(self.questions)
-            for question in self.questions:
-                random.shuffle(question['options'])
+        genre = filename.split('.')[0].replace('_', ' ').title()
+        self.all_questions[genre] = questions
 
     def change_genre(self, index):
         selected_genre = self.genres[index]
-        filename = selected_genre.lower().replace(' ', '_') + '.txt'  # Example: general_knowledge.txt
-        self.load_quiz_data(filename)
+        self.questions = random.sample(self.all_questions[selected_genre], 10)  # Select 10 random questions
+        for question in self.questions:
+            random.shuffle(question['options'])
 
         self.current_question_index = 0
         self.correct_answers = 0
